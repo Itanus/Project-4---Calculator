@@ -2,28 +2,32 @@ from tkinter import *
 
 
 def comm_add():
-    if not('+' in display_box.get("1.0", END) or len(display_box.get("1.0", END)) < 1):
-        display_box.insert(END, '+')
+    if not('+' in sign_box.get("1.0", END)):
+        sign_box.delete("1.0", END)
+        sign_box.insert(END, '+')
 
 
 def comm_sub():
-    if not('-' in display_box.get("1.0", END) or len(display_box.get("1.0", END)) < 1):
-        display_box.insert(END, '-')
+    if not('-' in sign_box.get("1.0", END)):
+        sign_box.delete("1.0", END)
+        sign_box.insert(END, '-')
 
 
 def comm_div():
-    if not('/' in display_box.get("1.0", END) or len(display_box.get("1.0", END)) < 1):
-        display_box.insert(END, '/')
+    if not('/' in sign_box.get("1.0", END)):
+        sign_box.delete("1.0", END)
+        sign_box.insert(END, '/')
 
 
 def comm_mul():
-    if not('*' in display_box.get("1.0", END) or len(display_box.get("1.0", END)) < 1):
-        display_box.insert(END, '*')
+    if not('*' in sign_box.get("1.0", END)):
+        sign_box.delete("1.0", END)
+        sign_box.insert(END, '*')
 
 
-def comm_result():
-    if not('-' in display_box.get("1.0", END) or len(display_box.get("1.0", END)) < 1):
-        display_box.insert(END, '-')
+#def comm_result():
+#    if not('=' in sign_box.get("1.0", END) or len(display_box.get("1.0", END)) < 1):
+#        display_box.insert(END, '-')
 
 
 def comm_1():
@@ -66,13 +70,29 @@ def comm_0():
     display_box.insert(END, '0')
 
 
+def comm_ac():
+    display_box.delete("1.0", END)
+    sign_box.delete("1.0", END)
+
+
+memory = 0              ##serves as a number memory that was put in the calculator
+
+
 window = Tk()
 window.title("Calculator")
 
 
+sign_box = Text(window, height=2, width=4)
+sign_box.grid(row=0, column=0)
+sign_box.delete("1.0", END)
+
 display_box = Text(window, height=2, width=10)
 display_box.grid(row=0, column=4)
 display_box.delete("1.0", END)
+
+
+button_ac = Button(window, text='AC', height=2, width=4, command=comm_ac)
+button_ac.grid(row=1, column=0)
 
 button_add = Button(window, text='+', height=2, width=4, command=comm_add)
 button_add.grid(row=2, column=4)
@@ -86,7 +106,7 @@ button_div.grid(row=4, column=4)
 button_mul = Button(window, text='*', height=2, width=4, command=comm_mul)
 button_mul.grid(row=5, column=4)
 
-button_result = Button(window, text='=', height=2, width=4, command=comm_result)
+button_result = Button(window, text='=', height=2, width=4)
 button_result.grid(row=1, column=4)
 
 button_0 = Button(window, text='0', height=2, width=4, command=comm_0)
@@ -95,7 +115,7 @@ button_0.grid(row=5, column=1)
 button_1 = Button(window, text='1', height=2, width=4, command=comm_1)
 button_1.grid(row=4, column=0)
 
-button_2 = Button(window, text='2', height=2, width=4 ,command=comm_2)
+button_2 = Button(window, text='2', height=2, width=4, command=comm_2)
 button_2.grid(row=4, column=1)
 
 button_3 = Button(window, text='3', height=2, width=4, command=comm_3)
