@@ -1,23 +1,26 @@
 from tkinter import *
 
 global sign
-sign = ' '
+sign = " "
 global current_num
-current_num = ' '
+current_num = " "
 
 
-def button_equal():
+def button_equali():
     global current_num
     global sign
-    if current_num != ' ' and sign != ' ':
+    if current_num != " " and sign != " ":
         second_num = display_box.get("1.0", END)
         display_box.delete("1.0", END)
         if sign == "+":
             display_box.insert(END, float(current_num) + float(second_num))
         elif sign == "-":
             display_box.insert(END, float(current_num) - float(second_num))
-        elif sign == "/" and second_num != "0":
-            display_box.insert(END, float(current_num) / float(second_num))
+        elif sign == "/":
+            if float(second_num) == 0.0:
+                display_box.insert(END, "Error")
+            else:
+                display_box.insert(END, float(current_num) / float(second_num))
         else:
             display_box.insert(END, float(current_num) * float(second_num))
         current_num = " "
@@ -31,17 +34,9 @@ def button_equal():
 def button_add():
     global sign
     global current_num
-    if sign == "+":
+    if len(display_box.get("1.0", END)) > 1:
         if current_num != " ":
-            # second_num = display_box.get("1.0", END)
-            # display_box.delete("1.0", END)
-            # display_box.insert(END, float(current_num) + float(second_num))
-            button_equal
-        else:
-            sign = " "
-            button_add.configure(bg="white")
-
-    else:
+            button_equali()
         sign = "+"
         button_div.configure(bg="white")
         button_mul.configure(bg="white")
@@ -51,10 +46,9 @@ def button_add():
 
 def button_subtract():
     global sign
-    if sign == "-":
-        sign = " "
-        button_sub.configure(bg="white")
-    else:
+    if len(display_box.get("1.0", END)) > 1:
+        if current_num != " ":
+            button_equali()
         sign = "-"
         button_add.configure(bg="white")
         button_div.configure(bg="white")
@@ -64,10 +58,9 @@ def button_subtract():
 
 def button_divide():
     global sign
-    if sign == "/":
-        sign = " "
-        button_div.configure(bg="white")
-    else:
+    if len(display_box.get("1.0", END)) > 1:
+        if current_num != " ":
+            button_equali()
         sign = "/"
         button_add.configure(bg="white")
         button_mul.configure(bg="white")
@@ -77,10 +70,9 @@ def button_divide():
 
 def button_multiply():
     global sign
-    if sign == "*":
-        sign = " "
-        button_mul.configure(bg="white")
-    else:
+    if len(display_box.get("1.0", END)) > 1:
+        if current_num != " ":
+            button_equali()
         sign = "*"
         button_div.configure(bg="white")
         button_add.configure(bg="white")
@@ -91,7 +83,7 @@ def button_multiply():
 def button_click(number):
     global sign
     global current_num
-    if sign != ' ':
+    if sign != " ":
         current_num = display_box.get("1.0", END)
         display_box.delete("1.0", END)
     display_box.insert(END, number)
@@ -106,6 +98,7 @@ def comm_ac():
     display_box.delete("1.0", END)
 
 
+# initialisation of a window
 window = Tk()
 window.title("Calculator")
 window.iconbitmap("calc.ico")
@@ -114,7 +107,7 @@ window.iconbitmap("calc.ico")
 # 0 row initialisation
 display_box = Text(window, height=3, width=25)
 display_box.delete("1.0", END)
-button_equal = Button(window, text='=', padx=25, pady=20, command=button_equal, bd=6)
+button_equal = Button(window, text='=', padx=25, pady=20, command=button_equali, bd=6)
 # 1 row buttons initialisation
 button_7 = Button(window, text='7', padx=30, pady=20, command=lambda: button_click(7))
 button_8 = Button(window, text='8', padx=30, pady=20, command=lambda: button_click(8))
@@ -136,24 +129,29 @@ button_0 = Button(window, text='0', padx=30, pady=20, command=lambda: button_cli
 button_point = Button(window, text='.', padx=30, pady=20, command=button_point)
 button_mul = Button(window, text='*', padx=25, pady=20, command=button_multiply, bd=6)
 
+
 # 0 row localisation
 display_box.grid(row=0, column=0, columnspan=3)
 button_equal.grid(row=0, column=4)
+
 # 1 row buttons localisation
 button_7.grid(row=1, column=0)
 button_8.grid(row=1, column=1)
 button_9.grid(row=1, column=2)
 button_add.grid(row=1, column=4)
+
 # 2 row buttons localisation
 button_4.grid(row=2, column=0)
 button_5.grid(row=2, column=1)
 button_6.grid(row=2, column=2)
 button_sub.grid(row=2, column=4)
+
 # 3 row buttons localisation
 button_1.grid(row=3, column=0)
 button_2.grid(row=3, column=1)
 button_3.grid(row=3, column=2)
 button_div.grid(row=3, column=4)
+
 # 4 row buttons localisation
 button_ac.grid(row=4, column=0)
 button_0.grid(row=4, column=1)
