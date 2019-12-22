@@ -1,73 +1,37 @@
 from tkinter import *
 
 
-def comm_add():
-    if not('+' in sign_box.get("1.0", END)):
+def button_add():
+    if not('+' in sign_box.get("1.0", END)) and len(display_box.get("1.0", END)) > 1:
         sign_box.delete("1.0", END)
         sign_box.insert(END, '+')
 
 
-def comm_sub():
-    if not('-' in sign_box.get("1.0", END)):
+def button_subtract():
+    if not('-' in sign_box.get("1.0", END)) and len(display_box.get("1.0", END)) > 1:
         sign_box.delete("1.0", END)
         sign_box.insert(END, '-')
 
 
-def comm_div():
-    if not('/' in sign_box.get("1.0", END)):
+def button_divide():
+    if not('/' in sign_box.get("1.0", END)) and len(display_box.get("1.0", END)) > 1:
         sign_box.delete("1.0", END)
         sign_box.insert(END, '/')
 
 
-def comm_mul():
-    if not('*' in sign_box.get("1.0", END)):
+def button_multiply():
+    if not('*' in sign_box.get("1.0", END)) and len(display_box.get("1.0", END)) > 1:
         sign_box.delete("1.0", END)
         sign_box.insert(END, '*')
 
 
-#def comm_result():
-#    if not('=' in sign_box.get("1.0", END) or len(display_box.get("1.0", END)) < 1):
-#        display_box.insert(END, '-')
+def button_click(number):
+    display_box.insert(END, number)
 
 
-def comm_1():
-    display_box.insert(END, '1')
-
-
-def comm_2():
-    display_box.insert(END, '2')
-
-
-def comm_3():
-    display_box.insert(END, '3')
-
-
-def comm_4():
-    display_box.insert(END, '4')
-
-
-def comm_5():
-    display_box.insert(END, '5')
-
-
-def comm_6():
-    display_box.insert(END, '6')
-
-
-def comm_7():
-    display_box.insert(END, '7')
-
-
-def comm_8():
-    display_box.insert(END, '8')
-
-
-def comm_9():
-    display_box.insert(END, '9')
-
-
-def comm_0():
-    display_box.insert(END, '0')
+def button_point():
+    if '.' not in display_box.get("1.0", END) and len(display_box.get("1.0", END)) > 1:
+        display_box.insert(END, '.')
 
 
 def comm_ac():
@@ -80,7 +44,7 @@ memory = 0              ##serves as a number memory that was put in the calculat
 
 window = Tk()
 window.title("Calculator")
-
+window.iconbitmap("calc.ico")
 
 sign_box = Text(window, height=2, width=4)
 sign_box.grid(row=0, column=0)
@@ -91,53 +55,54 @@ display_box.grid(row=0, column=4)
 display_box.delete("1.0", END)
 
 
-button_ac = Button(window, text='AC', height=2, width=4, command=comm_ac)
-button_ac.grid(row=1, column=0)
-
-button_add = Button(window, text='+', height=2, width=4, command=comm_add)
+button_add = Button(window, text='+', height=2, width=4, command=button_add)
 button_add.grid(row=2, column=4)
 
-button_sub = Button(window, text='-', height=2, width=4, command=comm_sub)
+button_sub = Button(window, text='-', height=2, width=4, command=button_subtract)
 button_sub.grid(row=3, column=4)
 
-button_div = Button(window, text='/', height=2, width=4, command=comm_div)
+button_div = Button(window, text='/', height=2, width=4, command=button_divide)
 button_div.grid(row=4, column=4)
 
-button_mul = Button(window, text='*', height=2, width=4, command=comm_mul)
+button_mul = Button(window, text='*', height=2, width=4, command=button_multiply)
 button_mul.grid(row=5, column=4)
 
 button_result = Button(window, text='=', height=2, width=4)
 button_result.grid(row=1, column=4)
 
-button_0 = Button(window, text='0', height=2, width=4, command=comm_0)
-button_0.grid(row=5, column=1)
 
-button_1 = Button(window, text='1', height=2, width=4, command=comm_1)
-button_1.grid(row=4, column=0)
+# 2 row buttons initialisation
+button_7 = Button(window, text='7', padx=30, pady=20, command=lambda: button_click(7))
+button_8 = Button(window, text='8', padx=30, pady=20, command=lambda: button_click(8))
+button_9 = Button(window, text='9', padx=30, pady=20, command=lambda: button_click(9))
+# 3 row buttons initialisation
+button_4 = Button(window, text='4', padx=30, pady=20, command=lambda: button_click(4))
+button_5 = Button(window, text='5', padx=30, pady=20, command=lambda: button_click(5))
+button_6 = Button(window, text='6', padx=30, pady=20, command=lambda: button_click(6))
+# 4 row buttons initialisation
+button_1 = Button(window, text='1', padx=30, pady=20, command=lambda: button_click(1))
+button_2 = Button(window, text='2', padx=30, pady=20, command=lambda: button_click(2))
+button_3 = Button(window, text='3', padx=30, pady=20, command=lambda: button_click(3))
+# 5 row buttons initialisation
+button_ac = Button(window, text='AC', padx=26, pady=20, command=comm_ac)
+button_0 = Button(window, text='0', padx=30, pady=20, command=lambda: button_click(0))
+button_point = Button(window, text='.', padx=30, pady=20, command=button_point)
 
-button_2 = Button(window, text='2', height=2, width=4, command=comm_2)
-button_2.grid(row=4, column=1)
-
-button_3 = Button(window, text='3', height=2, width=4, command=comm_3)
-button_3.grid(row=4, column=2)
-
-button_4 = Button(window, text='4', height=2, width=4, command=comm_4)
-button_4.grid(row=3, column=0)
-
-button_5 = Button(window, text='5', height=2, width=4, command=comm_5)
-button_5.grid(row=3, column=1)
-
-button_6 = Button(window, text='6', height=2, width=4, command=comm_6)
-button_6.grid(row=3, column=2)
-
-button_7 = Button(window, text='7', height=2, width=4, command=comm_7)
+# 2 row buttons localisation
 button_7.grid(row=2, column=0)
-
-button_8 = Button(window, text='8', height=2, width=4, command=comm_8)
 button_8.grid(row=2, column=1)
-
-button_9 = Button(window, text='9', height=2, width=4, command=comm_9)
 button_9.grid(row=2, column=2)
-
+# 3 row buttons localisation
+button_4.grid(row=3, column=0)
+button_5.grid(row=3, column=1)
+button_6.grid(row=3, column=2)
+# 4 row buttons localisation
+button_1.grid(row=4, column=0)
+button_2.grid(row=4, column=1)
+button_3.grid(row=4, column=2)
+# 5 row buttons localisation
+button_ac.grid(row=5, column=0)
+button_0.grid(row=5, column=1)
+button_point.grid(row=5, column=2)
 
 window = mainloop()
