@@ -101,7 +101,7 @@ def comm_ac():
 # initialisation of a window
 window = Tk()
 window.title("Calculator")
-window.iconbitmap("calc.ico")
+window.iconbitmap(r"C:\Users\robcw\Desktop\Python - Learning - Projects\Project 4 - Calculator\calc.ico")
 
 
 # 0 row initialisation
